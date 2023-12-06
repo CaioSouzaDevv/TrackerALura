@@ -16,9 +16,7 @@
         <div
           class="is-flex is-align-items-center is-justify-content-space-between"
         >
-          <section>
-            <strong>{{ tempoDecorrido }}  </strong>
-        </section>
+        <CronometroContador :tempoEmSegundos="tempoEmSegundos"/>
         </div>
         <button class="button" @click="inciar">
           <span class="icon">
@@ -40,28 +38,30 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import CronometroContador from './cronometroContador.vue'
 
 export default defineComponent({
   name: "FormularioContato",
+  components: {
+    CronometroContador
+  },
   data() {
     return {
       tempoEmSegundos: 0,
+      CronometroContador: 0
+
     };
   },
-  computed: {
-tempoDecorrido () : string{
-    return new Date(this.tempoEmSegundos * 1000).toISOString().substr(11,8)
-}
-  },
+
   methods: {
     inciar() {
-      setInterval(() => {
+      this.CronometroContador = setInterval(() => {
       this.tempoEmSegundos += 1
       }, 1000);
-      console.log("iniciando");
+    
     },
     finalizar() {
-      console.log("Finalizando");
+      clearInterval(this.tempoEmSegundos);
     },
   },
 });
