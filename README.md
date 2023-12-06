@@ -1,4 +1,5 @@
 # alura-tracker
+Iniciando os estudos de VUE.js com o Alura e outros.
 
 ## Project setup
 ```

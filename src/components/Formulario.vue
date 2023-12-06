@@ -61,8 +61,8 @@ export default defineComponent({
     
     },
     finalizar() {
-      clearInterval(this.tempoEmSegundos);
-    },
+    clearInterval(this.CronometroContador);
   },
+},
 });
 </script>
