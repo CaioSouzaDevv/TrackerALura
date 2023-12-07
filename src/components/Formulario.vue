@@ -9,11 +9,11 @@
         <input
           type="text"
           class="input"
-          placeholder="Qual Tarefa você deseja iniciar"
+          placeholder="Qual Tarefa você deseja iniciar" v-model="descricao"
         />
       </div>
       <div class="column">
-                <TemporizadorPlay />
+                <TemporizadorPlay @aoTemporizadorFinalizado="finalizarTarefa" />
       </div>
     </div>
   </div>
@@ -28,6 +28,19 @@ export default defineComponent({
   components: {
     TemporizadorPlay
   },
+  data () {
+    return {
+      descricao: ''
+    }
+  },
+  methods: {
+    finalizarTarefa (tempoDecorrido: number) : void {
+      console.log('Tempo da tarefa', tempoDecorrido);
+      console.log('Descrição da tarefa', this.descricao);
+      this.descricao = '';
+
+    }
+  }
   
 });
 </script>

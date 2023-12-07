@@ -25,28 +25,30 @@ import cronometroContador from "./cronometroContador.vue";
 
 export default defineComponent({
   name: "TemporizadorPlay",
+  emits: ["aoTemporizadorFinalizado"],
   components: {
     cronometroContador,
-  
   },
   data() {
     return {
       tempoEmSegundos: 0,
       cronometroContador: 0,
-        cronometroRodando: false
+      cronometroRodando: false,
     };
   },
 
   methods: {
     inciar() {
-        this.cronometroRodando = true;
+      this.cronometroRodando = true;
       this.cronometroContador = setInterval(() => {
         this.tempoEmSegundos += 1;
       }, 1000);
     },
     finalizar() {
-        this.cronometroRodando = false;
+      this.cronometroRodando = false;
       clearInterval(this.cronometroContador);
+      this.$emit("aoTemporizadorFinalizado", this.tempoEmSegundos);
+      this.tempoEmSegundos = 0;
     },
   },
 });
