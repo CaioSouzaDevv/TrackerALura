@@ -25,6 +25,7 @@ import TemporizadorPlay from './TemporizadorPlay.vue'
 
 export default defineComponent({
   name: "FormularioContato",
+  emits: ['aoSalvarTarefa'],
   components: {
     TemporizadorPlay
   },
@@ -35,8 +36,10 @@ export default defineComponent({
   },
   methods: {
     finalizarTarefa (tempoDecorrido: number) : void {
-      console.log('Tempo da tarefa', tempoDecorrido);
-      console.log('Descrição da tarefa', this.descricao);
+      this.$emit('aoSalvarTarefa', {
+        duracaoEmSegundos: tempoDecorrido,
+        descricao: this.descricao
+      })
       this.descricao = '';
 
     }
