@@ -1,14 +1,20 @@
 <template>
-  <main class="columns is-gapless is multilane">
+  <main
+    class="columns is-gapless is multilane"
+    :class="{ 'modo-escuro': modoEscuroAtivo }"
+  >
     <div class="columns is-one-quarter">
-      <barraLateral />
+      <barraLateral @aoTemaAlterado="trocarTema" />
     </div>
 
-    <div class="column is-three-quarter">
-      <FormularioComponents @aoSalvarTarefa="salvarTarefa"/>
+    <div class="column is-three-quarter conteudo">
+      <FormularioComponents @aoSalvarTarefa="salvarTarefa" />
       <div class="lista">
-        <TarefaLista v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa"/>
-       
+        <TarefaLista
+          v-for="(tarefa, index) in tarefas"
+          :key="index"
+          :tarefa="tarefa"
+        />
       </div>
     </div>
   </main>
@@ -31,18 +37,33 @@ export default defineComponent({
   data() {
     return {
       tarefas: [] as ITarefa[],
+      modoEscuroAtivo: false,
     };
   },
   methods: {
-    salvarTarefa (tarefa: ITarefa) {
+    salvarTarefa(tarefa: ITarefa) {
       this.tarefas.push(tarefa);
-    }
-  }
+    },
+    trocarTema(modoEscuroAtivo: boolean) {
+      this.modoEscuroAtivo = modoEscuroAtivo;
+    },
+  },
 });
 </script>
 
 <style>
 .lista {
   padding: 1.25rem;
+}
+main {
+  --bg-primary: #fff;
+  --text-primary: #000;
+}
+main.modo-escuro {
+  --bg-primary: #2b2d42;
+  --text-primary: #ddd;
+}
+.conteudo {
+  background-color: var(--bg-primary);
 }
 </style>
