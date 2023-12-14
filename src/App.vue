@@ -16,6 +16,9 @@
           :tarefa="tarefa"
         />
       </div>
+      <BoxTemplate v-if="listaEstaVazia">
+        Você não está muito produtivo hoje :(
+      </BoxTemplate>
     </div>
   </main>
 </template>
@@ -26,6 +29,7 @@ import barraLateral from "./components/barraLateral.vue";
 import FormularioComponents from "./components/Formulario.vue";
 import TarefaLista from "./components/TarefaLista.vue";
 import ITarefa from "./interfaces/ITarefa";
+import BoxTemplate from "./components/Box.vue";
 
 export default defineComponent({
   name: "App",
@@ -33,12 +37,18 @@ export default defineComponent({
     barraLateral,
     FormularioComponents,
     TarefaLista,
+    BoxTemplate,
   },
   data() {
     return {
       tarefas: [] as ITarefa[],
       modoEscuroAtivo: false,
     };
+  },
+  computed: {
+    listaEstaVazia(): boolean {
+      return this.tarefas.length === 0;
+    },
   },
   methods: {
     salvarTarefa(tarefa: ITarefa) {
@@ -52,9 +62,6 @@ export default defineComponent({
 </script>
 
 <style>
-.lista {
-  padding: 1.25rem;
-}
 main {
   --bg-primary: #fff;
   --text-primary: #000;
